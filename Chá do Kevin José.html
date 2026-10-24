@@ -1,0 +1,303 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Chá do Kevin José</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&family=Parisienne&display=swap">
+<style>
+/* Layout: uma coluna estreita, pensada para celular. Um arco azul em degradê (como o painel da decoração) abre a página,
+   com o balão-guirlanda ao lado. Abaixo, blocos brancos como os cubos de letras, um card tipo tag de lembrancinha no fim. */
+:root {
+  --sky: #EEF5FC;
+  --mist: #DCE9F8;
+  --blue: #8FB3E8;
+  --blue-deep: #5C85CE;
+  --navy: #28367F;
+  --gold: #B38A3A;
+  --gold-light: #E3C779;
+  --paper: #FFFFFF;
+  --ink: #2B3868;
+  --ink-soft: #5E6C99;
+  --line: #D3E1F3;
+  --font-script: "Parisienne", "Snell Roundhand", "Apple Chancery", cursive;
+  --font-body: "Nunito", "Segoe UI", system-ui, -apple-system, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body {
+  background-color: var(--sky);
+  background-image: radial-gradient(120% 60% at 50% 0%, #F8FBFF 0%, var(--sky) 55%, var(--mist) 100%);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  padding-block: 8px 40px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  min-height: 100%;
+}
+.page { max-width: 520px; margin: 0 auto; display: flex; flex-direction: column; gap: 36px; }
+
+/* HERO */
+.hero { position: relative; padding-top: 20px; }
+.arch {
+  position: relative;
+  width: min(78%, 380px);
+  aspect-ratio: 1 / 1.52;
+  margin: 0 auto;
+  border-radius: 999px 999px 20px 20px;
+  background: linear-gradient(180deg, #E6F0FB 0%, #D5E5F8 100%);
+  box-shadow:
+    inset 0 0 0 10px #6F95DB, inset 0 0 0 20px #7EA2E0, inset 0 0 0 30px #8DAFE5,
+    inset 0 0 0 40px #9CBBE9, inset 0 0 0 50px #ABC6ED, inset 0 0 0 60px #BAD1F1,
+    inset 0 0 0 70px #C9DCF5,
+    0 18px 40px -18px rgba(40, 54, 127, .45);
+  display: flex; flex-direction: column; align-items: center;
+  padding: 18% 78px 0;
+  text-align: center;
+}
+.eyebrow { font-weight: 800; font-size: .72rem; letter-spacing: .28em; text-transform: uppercase; color: var(--navy); }
+.ohbaby {
+  font-family: var(--font-script);
+  font-size: clamp(2rem, 9.5vw, 3.8rem);
+  line-height: 1.25;
+  white-space: nowrap;
+  margin: 4px 0 0;
+  background: linear-gradient(100deg, var(--gold) 10%, var(--gold-light) 45%, var(--gold) 80%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  padding: 0 .2em .12em;
+}
+.name {
+  font-family: var(--font-script);
+  font-size: clamp(2rem, 9.5vw, 3.3rem);
+  line-height: 1.05;
+  color: var(--navy);
+  margin: 14px 0 0;
+  text-wrap: balance;
+}
+.bear { width: min(46%, 150px); margin-top: auto; margin-bottom: 70px; display: block; }
+
+.garland {
+  position: absolute; left: 0; top: 28px; width: 26%; height: auto;
+  pointer-events: none; overflow: visible;
+}
+.garland .b { animation: sway 5s ease-in-out infinite; }
+.garland .b:nth-child(2n) { animation-delay: -1.2s; animation-duration: 6s; }
+.garland .b:nth-child(3n) { animation-delay: -2.6s; animation-duration: 4.4s; }
+@keyframes sway { 0%,100% { translate: 0 0; } 50% { translate: 0 -5px; } }
+
+/* TEXTO */
+.intro { text-align: center; display: flex; flex-direction: column; gap: 10px; padding-inline: 4px; }
+.intro .hosts { font-family: var(--font-script); font-size: 2rem; color: var(--blue-deep); line-height: 1.1; }
+.intro p { margin: 0; font-size: 1.05rem; text-wrap: balance; }
+.intro p.soft { color: var(--ink-soft); font-size: .95rem; }
+
+/* CONTAGEM */
+.count { text-align: center; }
+.label { font-weight: 800; font-size: .72rem; letter-spacing: .26em; text-transform: uppercase; color: var(--blue-deep); margin: 0 0 14px; }
+.blocks { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.cube {
+  background: var(--paper);
+  border: 3px solid #F3F7FC;
+  outline: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 14px 4px 10px;
+  box-shadow: 0 8px 18px -12px rgba(40, 54, 127, .5);
+  min-width: 0;
+}
+.cube b { display: block; font-size: clamp(1.7rem, 8.5vw, 2.4rem); font-weight: 800; line-height: 1; color: var(--blue-deep); font-variant-numeric: tabular-nums; }
+.cube span { display: block; font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); margin-top: 6px; font-weight: 600; }
+.today { font-family: var(--font-script); font-size: 2rem; color: var(--navy); margin: 0; }
+
+/* DETALHES */
+.details { display: flex; flex-direction: column; gap: 12px; }
+.row {
+  background: var(--paper); border: 1px solid var(--line); border-radius: 8px;
+  padding: 16px 18px; display: grid; grid-template-columns: 5.2rem 1fr; gap: 4px 14px; align-items: baseline;
+  box-shadow: 0 8px 18px -14px rgba(40, 54, 127, .5);
+}
+.row .k { font-weight: 800; font-size: .7rem; letter-spacing: .22em; text-transform: uppercase; color: var(--blue-deep); }
+.row .v { font-size: 1.12rem; font-weight: 600; min-width: 0; overflow-wrap: anywhere; }
+.row .v small { display: block; font-weight: 400; font-size: .9rem; color: var(--ink-soft); }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn {
+  flex: 1 1 140px; text-align: center; text-decoration: none; cursor: pointer;
+  font: 800 .92rem/1 var(--font-body); letter-spacing: .02em;
+  padding: 15px 16px; border-radius: 999px; border: 2px solid var(--blue-deep);
+  background: var(--blue-deep); color: #fff; transition: transform .15s ease, background-color .15s ease;
+}
+.btn.alt { background: transparent; color: var(--blue-deep); }
+.btn:hover { transform: translateY(-1px); }
+.btn:focus-visible { outline: 3px solid var(--navy); outline-offset: 3px; }
+.cube:focus-visible { outline: 3px solid var(--navy); outline-offset: 3px; }
+.copied { text-align: center; min-height: 1.2em; font-size: .85rem; color: var(--ink-soft); margin: -4px 0 0; }
+
+/* TAG DA LEMBRANCINHA */
+.tag-wrap { display: flex; justify-content: center; padding-top: 18px; }
+.tag {
+  position: relative; background: var(--paper); border: 1px solid var(--line); border-radius: 10px;
+  padding: 44px 26px 26px; text-align: center; width: min(100%, 340px); rotate: -2deg;
+  box-shadow: 0 16px 30px -18px rgba(40, 54, 127, .55);
+}
+.tag::before { content: ""; position: absolute; top: 14px; left: 50%; width: 14px; height: 14px; margin-left: -7px;
+  border-radius: 50%; background: var(--sky); border: 1px solid var(--line); }
+.tag .ribbon { position: absolute; top: -20px; left: 50%; width: 5px; height: 40px; background: #7FB6EE; rotate: 14deg; border-radius: 3px; }
+.tag h2 { font-family: var(--font-script); font-weight: 400; font-size: 2.1rem; line-height: 1.1; margin: 0; color: var(--navy); }
+.tag p { margin: 10px 0 0; color: var(--ink-soft); }
+.tag .bear-sm { width: 74px; margin: 12px auto 0; display: block; }
+.tag .sign { font-weight: 800; color: var(--blue-deep); letter-spacing: .04em; }
+
+@media (max-width: 400px) {
+  .arch { padding-inline: 62px; }
+  .row { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .garland .b { animation: none; }
+  .btn { transition: none; }
+}
+</style>
+
+<main class="page">
+  <section class="hero" aria-label="Convite">
+    <div class="arch">
+      <div class="eyebrow">Chá de bebê</div>
+      <h1 class="ohbaby">Oh Baby</h1>
+      <p class="name">Kevin José</p>
+      <svg class="bear" viewBox="0 0 120 130" role="img" aria-label="Ursinho de pelúcia com laço azul">
+        <g fill="#F7F2EB" stroke="#E2D7C9" stroke-width="2">
+          <circle cx="30" cy="30" r="16"/><circle cx="90" cy="30" r="16"/>
+          <ellipse cx="32" cy="108" rx="14" ry="12"/><ellipse cx="88" cy="108" rx="14" ry="12"/>
+          <ellipse cx="60" cy="96" rx="34" ry="30"/>
+          <ellipse cx="26" cy="90" rx="10" ry="16" transform="rotate(24 26 90)"/>
+          <ellipse cx="94" cy="90" rx="10" ry="16" transform="rotate(-24 94 90)"/>
+          <circle cx="60" cy="50" r="34"/>
+        </g>
+        <circle cx="30" cy="30" r="8" fill="#EADCCD"/><circle cx="90" cy="30" r="8" fill="#EADCCD"/>
+        <ellipse cx="60" cy="61" rx="14" ry="10.5" fill="#EFE3D5"/>
+        <ellipse cx="60" cy="55" rx="5.5" ry="3.8" fill="#6A5242"/>
+        <path d="M60 59 v4 M54 66 q6 4 12 0" stroke="#6A5242" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <circle cx="48" cy="45" r="3.2" fill="#54402F"/><circle cx="72" cy="45" r="3.2" fill="#54402F"/>
+        <path d="M60 84 L40 74 Q36 86 44 92 Z M60 84 L80 74 Q84 86 76 92 Z" fill="#8DBDF0"/>
+        <circle cx="60" cy="84" r="6" fill="#6FA6E8"/>
+      </svg>
+    </div>
+
+    <svg class="garland" viewBox="0 0 200 520" aria-hidden="true">
+      <defs>
+        <radialGradient id="gw" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#E4ECF6"/></radialGradient>
+        <radialGradient id="gb" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#A7C9F5"/><stop offset="1" stop-color="#5E96E0"/></radialGradient>
+        <radialGradient id="gn" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#5663B8"/><stop offset="1" stop-color="#232E78"/></radialGradient>
+      </defs>
+      <g class="b" data-c="#C9D8EC"><circle cx="78" cy="118" r="50" fill="url(#gw)"/></g>
+      <g class="b" data-c="#C9D8EC"><circle cx="128" cy="58" r="32" fill="url(#gw)"/></g>
+      <g class="b" data-c="#6FA6E8"><circle cx="108" cy="22" r="15" fill="url(#gb)"/><circle cx="128" cy="26" r="12" fill="url(#gb)"/><circle cx="116" cy="40" r="11" fill="url(#gb)"/></g>
+      <g class="b" data-c="#C9D8EC"><circle cx="150" cy="138" r="34" fill="url(#gw)"/></g>
+      <g class="b" data-c="#6FA6E8"><circle cx="146" cy="180" r="15" fill="url(#gb)"/><circle cx="164" cy="190" r="12" fill="url(#gb)"/><circle cx="136" cy="196" r="11" fill="url(#gb)"/></g>
+      <g class="b" data-c="#28367F"><circle cx="50" cy="196" r="14" fill="url(#gn)"/><circle cx="68" cy="204" r="12" fill="url(#gn)"/><circle cx="52" cy="214" r="11" fill="url(#gn)"/></g>
+      <g class="b" data-c="#C9D8EC"><circle cx="112" cy="250" r="42" fill="url(#gw)"/></g>
+      <g class="b" data-c="#C9D8EC"><circle cx="52" cy="270" r="26" fill="url(#gw)"/></g>
+      <g class="b" data-c="#C9D8EC"><circle cx="146" cy="318" r="30" fill="url(#gw)"/></g>
+      <g class="b" data-c="#C9D8EC"><circle cx="60" cy="334" r="44" fill="url(#gw)"/></g>
+      <g class="b" data-c="#6FA6E8"><circle cx="118" cy="372" r="14" fill="url(#gb)"/><circle cx="136" cy="380" r="12" fill="url(#gb)"/><circle cx="116" cy="390" r="11" fill="url(#gb)"/></g>
+      <g class="b" data-c="#C9D8EC"><circle cx="100" cy="420" r="38" fill="url(#gw)"/></g>
+      <g class="b" data-c="#28367F"><circle cx="46" cy="410" r="14" fill="url(#gn)"/><circle cx="64" cy="418" r="12" fill="url(#gn)"/><circle cx="48" cy="428" r="11" fill="url(#gn)"/></g>
+      <g class="b" data-c="#C9D8EC"><circle cx="58" cy="480" r="30" fill="url(#gw)"/></g>
+      <g class="b" data-c="#C9D8EC"><circle cx="140" cy="476" r="22" fill="url(#gw)"/></g>
+    </svg>
+  </section>
+
+  <section class="intro">
+    <div class="hosts">Daniel e Nicole</div>
+    <p>convidam você para celebrar a chegada do Kevin José.</p>
+    <p class="soft">Vai ser um dia de carinho, risadas e muito amor.</p>
+  </section>
+
+  <section class="count" aria-live="off">
+    <p class="label" id="count-label">Faltam para o chá</p>
+    <div class="blocks" id="blocks">
+      <div class="cube"><b id="d">00</b><span>dias</span></div>
+      <div class="cube"><b id="h">00</b><span>horas</span></div>
+      <div class="cube"><b id="m">00</b><span>min</span></div>
+      <div class="cube"><b id="s">00</b><span>seg</span></div>
+    </div>
+    <p class="today" id="today" hidden></p>
+  </section>
+
+  <section class="details" aria-label="Detalhes do evento">
+    <div class="row"><span class="k">Data</span><span class="v" id="date-v">Domingo, 8 de novembro de 2026</span></div>
+    <div class="row"><span class="k">Hora</span><span class="v" id="time-v">15h30</span></div>
+    <div class="row"><span class="k">Local</span><span class="v">Rua Beatriz Wunsch Kist, 289<small>Bairro Agostini</small></span></div>
+    <div class="actions">
+      <a class="btn" id="map" href="https://www.google.com/maps/search/?api=1&query=Rua%20Beatriz%20Wunsch%20Kist%2C%20289%2C%20Agostini%2C%20S%C3%A3o%20Miguel%20do%20Oeste%20SC" target="_blank" rel="noopener">Ver no mapa</a>
+      <a class="btn alt" id="cal" href="#" target="_blank" rel="noopener">Salvar na agenda</a>
+      <button class="btn alt" id="copy" type="button">Copiar endereço</button>
+    </div>
+    <p class="copied" id="copied" role="status"></p>
+  </section>
+
+  <section class="tag-wrap">
+    <div class="tag">
+      <span class="ribbon" aria-hidden="true"></span>
+      <h2>Eu sou um pacotinho de amor</h2>
+      <svg class="bear-sm" viewBox="0 0 120 100" aria-hidden="true">
+        <g fill="#F7F2EB" stroke="#E2D7C9" stroke-width="2"><circle cx="30" cy="28" r="16"/><circle cx="90" cy="28" r="16"/><circle cx="60" cy="52" r="36"/></g>
+        <circle cx="30" cy="28" r="8" fill="#EADCCD"/><circle cx="90" cy="28" r="8" fill="#EADCCD"/>
+        <ellipse cx="60" cy="63" rx="14" ry="10.5" fill="#EFE3D5"/><ellipse cx="60" cy="57" rx="5.5" ry="3.8" fill="#6A5242"/>
+        <circle cx="47" cy="46" r="3.2" fill="#54402F"/><circle cx="73" cy="46" r="3.2" fill="#54402F"/>
+        <path d="M60 88 L42 80 Q40 92 46 96 Z M60 88 L78 80 Q80 92 74 96 Z" fill="#8DBDF0"/>
+      </svg>
+      <p>Obrigado pelo carinho.</p>
+      <p class="sign">Daniel, Nicole e Kevin José</p>
+    </div>
+  </section>
+</main>
+
+<script>
+/* Para mudar o horário, edite só a linha abaixo (ano-mês-diaTHH:MM, fuso de Brasília). */
+var EVENT = { start: "2026-11-08T15:30:00-03:00", hours: 3 };
+
+var $ = function (id) { return document.getElementById(id); };
+var pad = function (n) { return String(n).padStart(2, "0"); };
+var startDate = new Date(EVENT.start);
+var tz = { timeZone: "America/Sao_Paulo" };
+
+var datePt = startDate.toLocaleDateString("pt-BR", Object.assign({ weekday: "long", day: "numeric", month: "long", year: "numeric" }, tz));
+$("date-v").textContent = datePt.charAt(0).toUpperCase() + datePt.slice(1);
+var hhmm = EVENT.start.slice(11, 16).split(":");
+$("time-v").textContent = hhmm[0] + "h" + hhmm[1];
+
+var iso = function (d) { return d.toISOString().replace(/[-:]|\.\d{3}/g, ""); };
+var end = new Date(startDate.getTime() + EVENT.hours * 3600000);
+$("cal").href = "https://calendar.google.com/calendar/render?action=TEMPLATE" +
+  "&text=" + encodeURIComponent("Chá de bebê do Kevin José") +
+  "&dates=" + iso(startDate) + "/" + iso(end) +
+  "&location=" + encodeURIComponent("Rua Beatriz Wunsch Kist, 289, Bairro Agostini");
+
+function tick() {
+  var diff = startDate.getTime() - Date.now();
+  if (diff <= 0) {
+    var over = Date.now() - startDate.getTime() > EVENT.hours * 3600000;
+    $("blocks").hidden = true; $("count-label").hidden = true;
+    $("today").hidden = false;
+    $("today").textContent = over ? "Obrigado por celebrar com a gente" : "É hoje!";
+    return;
+  }
+  var s = Math.floor(diff / 1000);
+  $("d").textContent = pad(Math.floor(s / 86400));
+  $("h").textContent = pad(Math.floor(s % 86400 / 3600));
+  $("m").textContent = pad(Math.floor(s % 3600 / 60));
+  $("s").textContent = pad(s % 60);
+  setTimeout(tick, 1000);
+}
+tick();
+
+$("copy").addEventListener("click", function () {
+  var text = "Rua Beatriz Wunsch Kist, 289, Bairro Agostini";
+  var done = function (msg) { $("copied").textContent = msg; setTimeout(function () { $("copied").textContent = ""; }, 2500); };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function () { done("Endereço copiado."); }, function () { done(text); });
+  } else { done(text); }
+});
+</script>
+
+</body></html>
