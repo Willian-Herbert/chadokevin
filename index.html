@@ -280,8 +280,6 @@ fieldset.field { border: 0; margin: 0; padding: 0; }
       <form id="rsvp-form" autocomplete="off" style="display:contents">
         <h2>Confirme sua presença</h2>
         <div class="field"><label for="r-name">Seu nome</label><input id="r-name" name="name" type="text" required maxlength="80" autocomplete="name"></div>
-        <div class="field"><label for="r-qty">Quantas pessoas vão com você</label>
-          <select id="r-qty" name="qty"><option value="1">Só eu</option><option value="2">2 pessoas</option><option value="3">3 pessoas</option><option value="4">4 pessoas</option><option value="5">5 pessoas</option><option value="6">6 pessoas</option></select></div>
         <button class="btn" id="r-send" type="submit">Enviar confirmação</button>
         <div class="msg" id="r-msg" role="status"></div>
       </form>
@@ -370,9 +368,37 @@ $("copy").addEventListener("click", function () {
 });
 /* CONFIGURAÇÃO: preencha estas três linhas. */
 var CONFIG = {
-  scriptUrl: "https://script.google.com/macros/s/AKfycbwN8VxyY7TB_8agWuS_KqscVWnv1jzf2SxGxCL9COCxcrCW2ofhrotCCtfHUiMoz-0qfg/exec",   // endereço do Apps Script (termina em /exec)
+  scriptUrl: "https://script.google.com/macros/s/AKfycbzpp5YYjftt5ghP6PdLNaKKokeCC1kbkL7xEic0F4YPFHZIQhgRgs6Dw9gMgoBBgxrdyw/exec",   // endereço do Apps Script (termina em /exec)
   whatsappUrl: "", // link do grupo, ex.: https://chat.whatsapp.com/XXXX
-  gifts: []        // ex.: ["Pacote de fralda P", "Lenço umedecido"]
+  gifts: [
+    "Mordedor",
+    "Kit Meias",
+    "Mantinhas ou coberta",
+    "Cueiros",
+    "Brinquedos Tummy Time",
+    "Kit Babador",
+    "Shampoo/Condicionador",
+    "Sabonete Líquido",
+    "Pomada Assadura",
+    "Kit de alimentação para quando começar introdução alimentar",
+    "Toalha de Banho com Capuz",
+    "Tapete para atividade infantil Áquila",
+    "Aspirador Nasal",
+    "Prendedor de Chupeta",
+    "Kit Higiene (escova para cabelo, cortador…)",
+    "Paninho de Boca",
+    "Hidratante corporal",
+    "Lenço Umedecido",
+    "Móbile para Berço",
+    "Chupeta",
+    "Óleo para bebê",
+    "Trocador para cômoda",
+    "Jogo lençol (berço de vime)",
+    "Calçados",
+    "Roupinhas (body, mijões, macacão…)",
+    "1 Body",
+    "1 Body + macacão"
+  ]
 };
 
 var panels = { rsvp: $("panel-rsvp"), gifts: $("panel-gifts") };
@@ -400,7 +426,7 @@ function fail(el, e) {
 $("rsvp-form").addEventListener("submit", function (e) {
   e.preventDefault();
   var btn = $("r-send"), msg = $("r-msg"); btn.disabled = true; msg.className = "msg"; msg.textContent = "Enviando...";
-  send({ type: "rsvp", name: $("r-name").value.trim(), qty: $("r-qty").value })
+  send({ type: "rsvp", name: $("r-name").value.trim() })
     .then(function (res) {
       if (!res || !res.ok) throw new Error("bad");
       $("rsvp-form").hidden = true; $("r-done").hidden = false;
