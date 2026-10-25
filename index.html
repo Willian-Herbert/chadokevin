@@ -1,6 +1,10 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>html{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Chá do Kevin José</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&family=Parisienne&display=swap">
@@ -132,6 +136,33 @@ body {
 .cube:focus-visible { outline: 3px solid var(--navy); outline-offset: 3px; }
 .copied { text-align: center; min-height: 1.2em; font-size: .85rem; color: var(--ink-soft); margin: -4px 0 0; }
 
+
+/* PARTICIPE */
+.join { display: flex; flex-direction: column; gap: 14px; }
+.join .label { text-align: center; margin: 0; }
+.panel { background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 20px 18px;
+  display: flex; flex-direction: column; gap: 14px; box-shadow: 0 8px 18px -14px rgba(40, 54, 127, .5); }
+.panel h2 { font-family: var(--font-script); font-weight: 400; font-size: 1.9rem; line-height: 1.1; margin: 0; color: var(--navy); }
+.panel p { margin: 0; color: var(--ink-soft); font-size: .95rem; }
+.field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.field label, .field legend { font-weight: 800; font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; color: var(--blue-deep); padding: 0; }
+.field input, .field select { font: 600 16px/1.3 var(--font-body); color: var(--ink); background: #F6FAFE;
+  border: 1.5px solid var(--line); border-radius: 8px; padding: 12px 14px; width: 100%; min-width: 0; }
+.field input:focus-visible, .field select:focus-visible { outline: 3px solid var(--blue); outline-offset: 1px; border-color: var(--blue-deep); }
+fieldset.field { border: 0; margin: 0; padding: 0; }
+.gift { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border: 1.5px solid var(--line); border-radius: 8px;
+  background: #F6FAFE; font-weight: 600; cursor: pointer; }
+.gift input { width: 20px; height: 20px; accent-color: var(--blue-deep); flex: none; }
+.gift small { margin-left: auto; font-weight: 600; color: var(--ink-soft); }
+.gift.taken { opacity: .55; cursor: not-allowed; text-decoration: line-through; }
+.gift:has(input:checked) { border-color: var(--blue-deep); background: #E8F0FC; }
+.gift:has(input:focus-visible) { outline: 3px solid var(--blue); outline-offset: 1px; }
+.msg { min-height: 1.2em; font-size: .9rem; font-weight: 600; color: var(--navy); }
+.msg.err { color: #B3412F; }
+.btn[disabled] { opacity: .6; cursor: wait; transform: none; }
+.done { text-align: center; display: flex; flex-direction: column; gap: 12px; align-items: center; }
+.done .btn { flex: none; width: 100%; background: #2FA866; border-color: #2FA866; }
+
 /* TAG DA LEMBRANCINHA */
 .tag-wrap { display: flex; justify-content: center; padding-top: 18px; }
 .tag {
@@ -157,6 +188,8 @@ body {
 }
 </style>
 
+</head>
+<body>
 <main class="page">
   <section class="hero" aria-label="Convite">
     <div class="arch">
@@ -235,6 +268,43 @@ body {
     <p class="copied" id="copied" role="status"></p>
   </section>
 
+
+  <section class="join" aria-label="Confirmação e presentes">
+    <p class="label">Participe</p>
+    <div class="actions">
+      <button class="btn" id="open-rsvp" type="button" aria-expanded="false" aria-controls="panel-rsvp">Confirmar presença</button>
+      <button class="btn alt" id="open-gifts" type="button" aria-expanded="false" aria-controls="panel-gifts">Lista de presentes</button>
+    </div>
+
+    <div class="panel" id="panel-rsvp" hidden>
+      <form id="rsvp-form" autocomplete="off" style="display:contents">
+        <h2>Confirme sua presença</h2>
+        <div class="field"><label for="r-name">Seu nome</label><input id="r-name" name="name" type="text" required maxlength="80" autocomplete="name"></div>
+        <div class="field"><label for="r-qty">Quantas pessoas vão com você</label>
+          <select id="r-qty" name="qty"><option value="1">Só eu</option><option value="2">2 pessoas</option><option value="3">3 pessoas</option><option value="4">4 pessoas</option><option value="5">5 pessoas</option><option value="6">6 pessoas</option></select></div>
+        <button class="btn" id="r-send" type="submit">Enviar confirmação</button>
+        <div class="msg" id="r-msg" role="status"></div>
+      </form>
+      <div class="done" id="r-done" hidden>
+        <h2>Presença confirmada</h2>
+        <p>Obrigado! Entre no grupo do WhatsApp para acompanhar as novidades.</p>
+        <a class="btn" id="wa" href="#" target="_blank" rel="noopener">Entrar no grupo do WhatsApp</a>
+        <p id="wa-soon" hidden>O link do grupo chega em breve.</p>
+      </div>
+    </div>
+
+    <div class="panel" id="panel-gifts" hidden>
+      <form id="gift-form" autocomplete="off" style="display:contents">
+        <h2>Lista de presentes</h2>
+        <p>Escolha o que quer dar ao Kevin José. Os itens já escolhidos ficam riscados.</p>
+        <fieldset class="field" id="gift-list"><legend>Itens</legend></fieldset>
+        <div class="field"><label for="g-name">Seu nome</label><input id="g-name" name="name" type="text" required maxlength="80" autocomplete="name"></div>
+        <button class="btn" id="g-send" type="submit">Reservar presente</button>
+        <div class="msg" id="g-msg" role="status"></div>
+      </form>
+    </div>
+  </section>
+
   <section class="tag-wrap">
     <div class="tag">
       <span class="ribbon" aria-hidden="true"></span>
@@ -298,6 +368,91 @@ $("copy").addEventListener("click", function () {
     navigator.clipboard.writeText(text).then(function () { done("Endereço copiado."); }, function () { done(text); });
   } else { done(text); }
 });
-</script>
+/* CONFIGURAÇÃO: preencha estas três linhas. */
+var CONFIG = {
+  scriptUrl: "https://script.google.com/macros/s/AKfycbwN8VxyY7TB_8agWuS_KqscVWnv1jzf2SxGxCL9COCxcrCW2ofhrotCCtfHUiMoz-0qfg/exec",   // endereço do Apps Script (termina em /exec)
+  whatsappUrl: "", // link do grupo, ex.: https://chat.whatsapp.com/XXXX
+  gifts: []        // ex.: ["Pacote de fralda P", "Lenço umedecido"]
+};
 
-</body></html>
+var panels = { rsvp: $("panel-rsvp"), gifts: $("panel-gifts") };
+function toggle(which) {
+  Object.keys(panels).forEach(function (k) {
+    var open = k === which && panels[k].hidden;
+    panels[k].hidden = !open;
+    $("open-" + k).setAttribute("aria-expanded", String(open));
+    if (open) panels[k].scrollIntoView({ behavior: "smooth", block: "nearest" });
+  });
+}
+$("open-rsvp").addEventListener("click", function () { toggle("rsvp"); });
+$("open-gifts").addEventListener("click", function () { toggle("gifts"); loadGifts(); });
+
+function send(payload) {
+  if (!CONFIG.scriptUrl) return Promise.reject(new Error("off"));
+  return fetch(CONFIG.scriptUrl, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) })
+    .then(function (r) { return r.json(); });
+}
+function fail(el, e) {
+  el.className = "msg err";
+  el.textContent = e && e.message === "off" ? "O envio ainda não está ativo. Tente de novo mais tarde." : "Não foi possível enviar. Verifique a internet e tente de novo.";
+}
+
+$("rsvp-form").addEventListener("submit", function (e) {
+  e.preventDefault();
+  var btn = $("r-send"), msg = $("r-msg"); btn.disabled = true; msg.className = "msg"; msg.textContent = "Enviando...";
+  send({ type: "rsvp", name: $("r-name").value.trim(), qty: $("r-qty").value })
+    .then(function (res) {
+      if (!res || !res.ok) throw new Error("bad");
+      $("rsvp-form").hidden = true; $("r-done").hidden = false;
+      if (CONFIG.whatsappUrl) { $("wa").href = CONFIG.whatsappUrl; } else { $("wa").hidden = true; $("wa-soon").hidden = false; }
+    })
+    .catch(function (err) { fail(msg, err); })
+    .then(function () { btn.disabled = false; });
+});
+
+var taken = [];
+function renderGifts() {
+  var box = $("gift-list");
+  box.querySelectorAll(".gift, .empty").forEach(function (n) { n.remove(); });
+  if (!CONFIG.gifts.length) { var p = document.createElement("p"); p.className = "empty"; p.textContent = "A lista de presentes será publicada em breve."; box.appendChild(p); $("g-send").disabled = true; return; }
+  CONFIG.gifts.forEach(function (g) {
+    var isTaken = taken.indexOf(g) > -1;
+    var l = document.createElement("label"); l.className = "gift" + (isTaken ? " taken" : "");
+    var i = document.createElement("input"); i.type = "checkbox"; i.value = g; i.disabled = isTaken;
+    var t = document.createElement("span"); t.textContent = g;
+    l.appendChild(i); l.appendChild(t);
+    if (isTaken) { var s = document.createElement("small"); s.textContent = "já escolhido"; l.appendChild(s); }
+    box.appendChild(l);
+  });
+}
+var giftsLoaded = false;
+function loadGifts() {
+  renderGifts();
+  if (giftsLoaded || !CONFIG.scriptUrl || !CONFIG.gifts.length) return;
+  giftsLoaded = true;
+  fetch(CONFIG.scriptUrl).then(function (r) { return r.json(); })
+    .then(function (d) { taken = d.taken || []; renderGifts(); }).catch(function () { giftsLoaded = false; });
+}
+
+$("gift-form").addEventListener("submit", function (e) {
+  e.preventDefault();
+  var items = Array.prototype.map.call($("gift-list").querySelectorAll("input:checked"), function (i) { return i.value; });
+  var btn = $("g-send"), msg = $("g-msg");
+  if (!items.length) { msg.className = "msg err"; msg.textContent = "Escolha pelo menos um item."; return; }
+  btn.disabled = true; msg.className = "msg"; msg.textContent = "Reservando...";
+  send({ type: "gift", name: $("g-name").value.trim(), items: items })
+    .then(function (res) {
+      if (res && res.taken && res.taken.length) { taken = taken.concat(res.taken); renderGifts(); throw new Error("taken"); }
+      if (!res || !res.ok) throw new Error("bad");
+      taken = taken.concat(items); renderGifts();
+      msg.className = "msg"; msg.textContent = "Presente reservado. Obrigado pelo carinho!";
+    })
+    .catch(function (err) {
+      if (err.message === "taken") { msg.className = "msg err"; msg.textContent = "Alguém acabou de escolher um desses itens. Escolha outro."; }
+      else fail(msg, err);
+    })
+    .then(function () { btn.disabled = false; });
+});
+</script>
+</body>
+</html>
