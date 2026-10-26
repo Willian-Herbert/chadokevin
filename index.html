@@ -154,14 +154,12 @@ fieldset.field { border: 0; margin: 0; padding: 0; }
   background: #F6FAFE; font-weight: 600; cursor: pointer; }
 .gift input { width: 20px; height: 20px; accent-color: var(--blue-deep); flex: none; }
 .gift small { margin-left: auto; font-weight: 600; color: var(--ink-soft); }
-.gift.taken { opacity: .55; cursor: not-allowed; text-decoration: line-through; }
 .gift:has(input:checked) { border-color: var(--blue-deep); background: #E8F0FC; }
 .gift:has(input:focus-visible) { outline: 3px solid var(--blue); outline-offset: 1px; }
 .msg { min-height: 1.2em; font-size: .9rem; font-weight: 600; color: var(--navy); }
 .msg.err { color: #B3412F; }
 .btn[disabled] { opacity: .6; cursor: wait; transform: none; }
 .done { text-align: center; display: flex; flex-direction: column; gap: 12px; align-items: center; }
-.done .btn { flex: none; width: 100%; background: #2FA866; border-color: #2FA866; }
 
 /* TAG DA LEMBRANCINHA */
 .tag-wrap { display: flex; justify-content: center; padding-top: 18px; }
@@ -285,19 +283,17 @@ fieldset.field { border: 0; margin: 0; padding: 0; }
       </form>
       <div class="done" id="r-done" hidden>
         <h2>Presença confirmada</h2>
-        <p>Obrigado! Entre no grupo do WhatsApp para acompanhar as novidades.</p>
-        <a class="btn" id="wa" href="#" target="_blank" rel="noopener">Entrar no grupo do WhatsApp</a>
-        <p id="wa-soon" hidden>O link do grupo chega em breve.</p>
+        <p>Obrigado! Esperamos você para celebrar com a gente.</p>
       </div>
     </div>
 
     <div class="panel" id="panel-gifts" hidden>
       <form id="gift-form" autocomplete="off" style="display:contents">
         <h2>Lista de presentes</h2>
-        <p>Escolha o que quer dar ao Kevin José. Os itens já escolhidos ficam riscados.</p>
+        <p>Escolha um ou mais itens para dar ao Kevin José. O número mostra quantas pessoas já escolheram cada um.</p>
         <fieldset class="field" id="gift-list"><legend>Itens</legend></fieldset>
         <div class="field"><label for="g-name">Seu nome</label><input id="g-name" name="name" type="text" required maxlength="80" autocomplete="name"></div>
-        <button class="btn" id="g-send" type="submit">Reservar presente</button>
+        <button class="btn" id="g-send" type="submit">Enviar escolha</button>
         <div class="msg" id="g-msg" role="status"></div>
       </form>
     </div>
@@ -366,38 +362,24 @@ $("copy").addEventListener("click", function () {
     navigator.clipboard.writeText(text).then(function () { done("Endereço copiado."); }, function () { done(text); });
   } else { done(text); }
 });
-/* CONFIGURAÇÃO: preencha estas três linhas. */
+/* CONFIGURAÇÃO: cole o endereço do Apps Script em scriptUrl. */
 var CONFIG = {
-  scriptUrl: "https://script.google.com/macros/s/AKfycbzpp5YYjftt5ghP6PdLNaKKokeCC1kbkL7xEic0F4YPFHZIQhgRgs6Dw9gMgoBBgxrdyw/exec",   // endereço do Apps Script (termina em /exec)
-  whatsappUrl: "", // link do grupo, ex.: https://chat.whatsapp.com/XXXX
+  scriptUrl: "https://script.google.com/macros/s/AKfycbweyJme15RqVN41qBezaSCuaE5QuTEcQF8rDfPPU6u-LIRzzI8IAfmiPSjJhOGRqswjHg/exec",   // endereço do Apps Script (termina em /exec)
   gifts: [
-    "Mordedor",
-    "Kit Meias",
-    "Mantinhas ou coberta",
-    "Cueiros",
-    "Brinquedos Tummy Time",
-    "Kit Babador",
-    "Shampoo/Condicionador",
-    "Sabonete Líquido",
-    "Pomada Assadura",
-    "Kit de alimentação para quando começar introdução alimentar",
-    "Toalha de Banho com Capuz",
-    "Tapete para atividade infantil Áquila",
-    "Aspirador Nasal",
-    "Prendedor de Chupeta",
-    "Kit Higiene (escova para cabelo, cortador…)",
-    "Paninho de Boca",
-    "Hidratante corporal",
-    "Lenço Umedecido",
-    "Móbile para Berço",
-    "Chupeta",
-    "Óleo para bebê",
-    "Trocador para cômoda",
-    "Jogo lençol (berço de vime)",
-    "Calçados",
-    "Roupinhas (body, mijões, macacão…)",
-    "1 Body",
-    "1 Body + macacão"
+    "Lenços umedecidos",
+    "Pomadas para assadura",
+    "Sabonete líquido neutro",
+    "Toalhas de banho com capuz",
+    "Brinquedos para tummy time",
+    "Paninhos de boca / Babadores",
+    "Babadores",
+    "Almofada de amamentação",
+    "Mordedores e chocalhos",
+    "Prendedor para chupeta",
+    "Porta chupeta",
+    "Tapete de tummy time",
+    "Kit para introdução alimentar",
+    "Hidratante criança"
   ]
 };
 
@@ -430,24 +412,24 @@ $("rsvp-form").addEventListener("submit", function (e) {
     .then(function (res) {
       if (!res || !res.ok) throw new Error("bad");
       $("rsvp-form").hidden = true; $("r-done").hidden = false;
-      if (CONFIG.whatsappUrl) { $("wa").href = CONFIG.whatsappUrl; } else { $("wa").hidden = true; $("wa-soon").hidden = false; }
     })
     .catch(function (err) { fail(msg, err); })
     .then(function () { btn.disabled = false; });
 });
 
-var taken = [];
+var counts = {};
 function renderGifts() {
   var box = $("gift-list");
+  var keep = Array.prototype.map.call(box.querySelectorAll("input:checked"), function (i) { return i.value; });
   box.querySelectorAll(".gift, .empty").forEach(function (n) { n.remove(); });
   if (!CONFIG.gifts.length) { var p = document.createElement("p"); p.className = "empty"; p.textContent = "A lista de presentes será publicada em breve."; box.appendChild(p); $("g-send").disabled = true; return; }
   CONFIG.gifts.forEach(function (g) {
-    var isTaken = taken.indexOf(g) > -1;
-    var l = document.createElement("label"); l.className = "gift" + (isTaken ? " taken" : "");
-    var i = document.createElement("input"); i.type = "checkbox"; i.value = g; i.disabled = isTaken;
+    var n = counts[g] || 0;
+    var l = document.createElement("label"); l.className = "gift";
+    var i = document.createElement("input"); i.type = "checkbox"; i.value = g; i.checked = keep.indexOf(g) > -1;
     var t = document.createElement("span"); t.textContent = g;
     l.appendChild(i); l.appendChild(t);
-    if (isTaken) { var s = document.createElement("small"); s.textContent = "já escolhido"; l.appendChild(s); }
+    if (n) { var s = document.createElement("small"); s.textContent = n === 1 ? "1 pessoa já escolheu" : n + " pessoas já escolheram"; l.appendChild(s); }
     box.appendChild(l);
   });
 }
@@ -457,7 +439,7 @@ function loadGifts() {
   if (giftsLoaded || !CONFIG.scriptUrl || !CONFIG.gifts.length) return;
   giftsLoaded = true;
   fetch(CONFIG.scriptUrl).then(function (r) { return r.json(); })
-    .then(function (d) { taken = d.taken || []; renderGifts(); }).catch(function () { giftsLoaded = false; });
+    .then(function (d) { counts = d.counts || {}; renderGifts(); }).catch(function () { giftsLoaded = false; });
 }
 
 $("gift-form").addEventListener("submit", function (e) {
@@ -465,18 +447,16 @@ $("gift-form").addEventListener("submit", function (e) {
   var items = Array.prototype.map.call($("gift-list").querySelectorAll("input:checked"), function (i) { return i.value; });
   var btn = $("g-send"), msg = $("g-msg");
   if (!items.length) { msg.className = "msg err"; msg.textContent = "Escolha pelo menos um item."; return; }
-  btn.disabled = true; msg.className = "msg"; msg.textContent = "Reservando...";
+  btn.disabled = true; msg.className = "msg"; msg.textContent = "Enviando...";
   send({ type: "gift", name: $("g-name").value.trim(), items: items })
     .then(function (res) {
-      if (res && res.taken && res.taken.length) { taken = taken.concat(res.taken); renderGifts(); throw new Error("taken"); }
       if (!res || !res.ok) throw new Error("bad");
-      taken = taken.concat(items); renderGifts();
-      msg.className = "msg"; msg.textContent = "Presente reservado. Obrigado pelo carinho!";
+      items.forEach(function (i) { counts[i] = (counts[i] || 0) + 1; });
+      $("gift-list").querySelectorAll("input:checked").forEach(function (i) { i.checked = false; });
+      renderGifts();
+      msg.className = "msg"; msg.textContent = "Presentes registrados. Obrigado pelo carinho!";
     })
-    .catch(function (err) {
-      if (err.message === "taken") { msg.className = "msg err"; msg.textContent = "Alguém acabou de escolher um desses itens. Escolha outro."; }
-      else fail(msg, err);
-    })
+    .catch(function (err) { fail(msg, err); })
     .then(function () { btn.disabled = false; });
 });
 </script>
